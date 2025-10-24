@@ -18,4 +18,4 @@ jobs:
     uses: oyegokeodev/.github/.github/workflows/nodejs-ci.yml@main
     with:
       node-version: ${{ inputs.node-version || '18' }}
-    secrets: inherit
+      environment: 'production'
