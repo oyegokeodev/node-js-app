@@ -1,11 +1,21 @@
-name: "Node App CI"
+name: CI Pipeline
+
 on:
-  push:
   pull_request:
+    branches: [ main, develop ]
+  push:
+    branches: [ main, develop ]
   workflow_dispatch:
+    inputs:
+      node-version:
+        description: 'Node.js version'
+        required: false
+        default: '18'
 
 jobs:
-  build:
-    uses: oyegokeodev/.github/.github/workflows/cache-upload.yml@main
+  call-shared-workflow:
+    name: Use shared CI template
+    uses: oyegokeodev/.github/.github/workflows/nodejs-ci.yml@main
     with:
-      node-version: "18"
+      node-version: ${{ inputs.node-version || '18' }}
+    secrets: inherit
